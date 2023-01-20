@@ -1,6 +1,6 @@
 package sdf;
 
-import java.util.Arrays;
+import java.util.Scanner;
 
 public final class App {
 
@@ -19,55 +19,53 @@ public final class App {
         //Instantiating and printing initial board
         TicTacToe ttt = new TicTacToe();
         ttt.printBoard(tttBoard);
-    }
 
+        Scanner scanner = new Scanner(System.in);
 
-    public String checkWinner(String[] board) {
-        String line = "";
         String winner = "";
+        while(winner == "") {
+            // play tic-tac-toe logic here...
+            System.out.println("Tic-Tac-Toe game");
+            System.out.println("-------------------");
+            System.out.println(player + " will play now");
 
-        int i = 0;
-        while (i < 8) {
-            switch(i) {
-                case 0: line = board [0] + board [1] + board [2];
-                    break;
-                case 1: line = board [3] + board [4] + board [5];
-                    break;
-                case 2: line = board [6] + board [7] + board [8];
-                    break;
-                case 3: line = board [0] + board [3] + board [6];
-                    break;
-                case 4: line = board [1] + board [4] + board [7];
-                    break;
-                case 5: line = board [2] + board [5] + board [8];
-                    break;
-                case 6: line = board [0] + board [4] + board [8];
-                    break;
-                case 7: line = board [2] + board [4] + board [6];
-                    break;
-            } 
-            i++;
+            Integer input;
 
-            if (line.equals("XXX")){
-                winner = "X";
-                i = 9; //set i = 9 meaning if there is a winner, i will become 9; it will not go into the while loop
-            } else if (line.equalsIgnoreCase("000")){
-                winner = "0";
-                i = 9;
+            System.out.println("Player " + player + " enter your position: ");
+            input = scanner.nextInt();
+
+            // only accept keyboard input 1 to 9
+            if((input > 0) && (input < 10)) {
+
             } else {
-                for (int a = 0; a < 9; a ++){
-                    if (Arrays.asList(board).contains(String.valueOf(a+1))) {
-                        //above method converts array to list to see if it contains any numeric no. 1-9, if it does, break from for loop
-                        break;
-                    } else if (a == 8) {
-                        winner = "draw";
-                    }
+                System.out.println("Invalid input: Only number 1 to 9 is allowed.");
+                continue;
+            }
+
+            // assign X or O to position / detect the next player's turn
+            // below if condition checks if the particular square in grid has been filled; if array 0 contains 1 means no X or O filled it up
+            if((tttBoard[input-1]).equals(String.valueOf(input))){
+                tttBoard[input-1] = player;
+
+                // switch to another player's turn
+                if(player.equalsIgnoreCase("X")){
+                    player = "0";
+                } else {
+                    player = "X";
                 }
+            } else {
+                System.out.println("Position already taken up. Please enter another position number");
+            }
+
+            ttt.printBoard(tttBoard);
+            winner = ttt.checkWinner(tttBoard);
+
+            if (winner.equalsIgnoreCase("draw")) {
+                System.out.println("It's a draw!");
+            } else {
+                System.out.println(winner + " is the winner!");
             }
         }
-        
-        return winner;
+        scanner.close();
     }
-
-    
 }
