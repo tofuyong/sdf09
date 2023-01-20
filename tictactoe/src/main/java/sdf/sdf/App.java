@@ -1,5 +1,7 @@
 package sdf;
 
+import java.util.Arrays;
+
 public final class App {
 
     public static void main(String[] args) {
@@ -19,9 +21,10 @@ public final class App {
         ttt.printBoard(tttBoard);
     }
 
-    
+
     public String checkWinner(String[] board) {
         String line = "";
+        String winner = "";
 
         int i = 0;
         while (i < 8) {
@@ -42,11 +45,28 @@ public final class App {
                     break;
                 case 7: line = board [2] + board [4] + board [6];
                     break;
+            } 
+            i++;
+
+            if (line.equals("XXX")){
+                winner = "X";
+                i = 9; //set i = 9 meaning if there is a winner, i will become 9; it will not go into the while loop
+            } else if (line.equalsIgnoreCase("000")){
+                winner = "0";
+                i = 9;
+            } else {
+                for (int a = 0; a < 9; a ++){
+                    if (Arrays.asList(board).contains(String.valueOf(a+1))) {
+                        //above method converts array to list to see if it contains any numeric no. 1-9, if it does, break from for loop
+                        break;
+                    } else if (a == 8) {
+                        winner = "draw";
+                    }
+                }
             }
         }
         
-        
-        return "";
+        return winner;
     }
 
     
