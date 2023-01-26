@@ -111,6 +111,4 @@
 <error line="52" severity="error" message="Line is longer than 120 characters (found 136)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
 <error line="54" column="37" severity="error" message="&apos;8&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
 </file>
-<file name="/Users/andreayong/IBFB2/sdf09/tictactoe/src/test/java/sdf/AppTest.java">
-</file>
 </checkstyle>
